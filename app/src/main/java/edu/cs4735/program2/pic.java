@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +35,11 @@ public class pic extends Fragment {
         // Required empty public constructor
     }
 
+    // constructor takes the title from the marker and hopefully the image associated
     @SuppressLint("ValidFragment")
-    public pic(String text) {
+    public pic(String text, Bitmap b) {
         tvText = text;
+        bm = b;
     }
 
 
@@ -48,14 +52,25 @@ public class pic extends Fragment {
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_pic, container, false);
 
+        //set the image view to a rotated bitmap
         iv = myView.findViewById(R.id.imageView);
-        String t = "Location_41.3283938,_-105.5865193";
-        iv.setImageResource(R.drawable.loc);
 
+        iv.setImageBitmap(bm);
 
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+
+        Bitmap rotated = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(),
+                matrix, true);
+
+        iv.setImageBitmap(rotated);
+
+        //set the text view to the marker title
         tv = myView.findViewById(R.id.locTV);
         if(tv != null)
             tv.setText(tvText);
+
+        // set the button and its listener
         butt = myView.findViewById(R.id.backButton);
         butt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,15 +78,11 @@ public class pic extends Fragment {
                 if (mListener != null) {
                     mListener.onPicFragmentInteraction();
                 }
-                //getActivity().getSupportFragmentManager().popBackStack();
+
             }
         });
 
         return myView;
-    }
-
-    public void setTV(String text){
-        tv.setText(text);
     }
 
 
@@ -103,7 +114,6 @@ public class pic extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnPicFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onPicFragmentInteraction();
     }
 }
