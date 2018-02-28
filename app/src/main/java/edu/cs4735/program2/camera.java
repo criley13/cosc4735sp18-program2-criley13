@@ -1,5 +1,6 @@
 package edu.cs4735.program2;
 
+import android.app.Activity;
 import android.content.Context;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class camera extends Fragment {
@@ -29,6 +31,7 @@ public class camera extends Fragment {
     FrameLayout preview;
     Button btn_takepicture;
 
+    static String s;
 
     public camera() {
         // Required empty public constructor
@@ -60,6 +63,9 @@ public class camera extends Fragment {
                         // get an image from the camera
                         if (mPreview != null) {
                             mPreview.TakePicture(getOutputMediaFile(MEDIA_TYPE_IMAGE));
+                            //releaseCamera();
+                            getActivity().getSupportFragmentManager().popBackStack();
+
                         }
 
                     }
@@ -67,6 +73,10 @@ public class camera extends Fragment {
         );
 
         return myView;
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     private static File getOutputMediaFile(int type) {
@@ -93,7 +103,7 @@ public class camera extends Fragment {
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "IMG_" + timeStamp + ".jpg");
+                    s + ".jpg");
         } else if (type == MEDIA_TYPE_VIDEO) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
                     "VID_" + timeStamp + ".mp4");

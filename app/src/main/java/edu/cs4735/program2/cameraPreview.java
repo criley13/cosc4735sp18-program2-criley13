@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
+import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraCharacteristics;
@@ -15,22 +16,15 @@ import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.TotalCaptureResult;
 import android.media.Image;
 import android.media.ImageReader;
-import android.net.Uri;
-import android.os.Bundle;
-import android.app.Fragment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.util.Size;
-import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -50,7 +44,7 @@ public class cameraPreview extends SurfaceView implements SurfaceHolder.Callback
     Context context;
 
     String cameraID;
-    private CameraDevice mCameraDevice;
+    public CameraDevice mCameraDevice;
     private CaptureRequest.Builder mPreviewBuilder;
     private CameraCaptureSession mPreviewSession;
 
@@ -353,4 +347,5 @@ public class cameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
         }
     };
+
 }
