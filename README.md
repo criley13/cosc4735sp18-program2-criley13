@@ -1,7 +1,7 @@
-# Program # X
-Name:  
-Cosc 5010 or 4010
+# Program # 2
+Name:  Colin Riley
+Cosc 4010
 
-Description:  (how to run the program, phone/emulator screen size, android version ie 7.0)
+Description:  Runs on Pixel 2, api 27
 
-Anything that doesn't work:
+Anything that doesn't work:  seems to work fine
